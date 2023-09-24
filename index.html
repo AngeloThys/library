@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&family=Sacramento&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <div class="title">
+        <h1>Library</h1>
+        <img
+          src="./img/library-icon-2.svg"
+          alt="Logo of three books side by side"
+        />
+      </div>
+      <div class="action">
+        <h2>Add a book</h2>
+        <img src="./img/plus-icon-2.svg" alt="Logo of a plus symbol" />
+      </div>
+    </header>
+    <dialog id="bookDialog">
+      <form id="bookForm" method="dialog" action="">
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title" />
+        <label for="author">Author</label>
+        <input type="text" name="author" id="author" />
+        <label for="pages">Pages</label>
+        <input type="number" name="pages" id="pages" />
+        <h2>Read</h2>
+        <label class="toggle" for="read">
+          <input type="checkbox" name="read" id="read" />
+          <span class="slider"></span>
+        </label>
+      </form>
+      <div class="bookButtons">
+        <button id="cancel" type="reset">Cancel</button>
+        <button id="submit" type="submit">Add Book</button>
+      </div>
+    </dialog>
+    <div class="background">
+      <main></main>
+      <footer>
+        <div class="footer-background">
+          <p>Made by <span>Angelo Thys</span></p>
+          <div class="footer-logos">
+            <img
+              class="signature"
+              src="./img/logo.svg"
+              alt="Logo of the creator of the website"
+            />
+            <a
+              class="github-link"
+              href="https://github.com/AngeloThys"
+              target="_blank"
+            >
+              <img
+                class="github-logo"
+                src="./img/github-mark.svg"
+                alt="Logo of Github"
+              />
+            </a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

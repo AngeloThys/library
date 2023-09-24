@@ -1,0 +1,347 @@
+:root {
+  --primary-brown: #846358;
+  --secondary-brown: #d2bab0;
+  --tertiary-brown: #f8f1ee;
+  --primary-red: #c2255c;
+  --secondary-red: #e64980;
+  --tertiary-red: #f783ac;
+  --primary-background: url(./img/primary-background.svg);
+  --secondary-background: url(./img/secondary-background.svg);
+}
+
+* {
+  color: var(--primary-brown);
+}
+
+@keyframes christmas-lights {
+  0% {
+    background-image: url(./img/primary-background.svg);
+  }
+
+  49% {
+    background-image: url(./img/primary-background.svg);
+  }
+
+  50% {
+    background-image: url(./img/secondary-background.svg);
+  }
+
+  100% {
+    background-image: url(./img/secondary-background.svg);
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: rotate(30deg);
+  }
+
+  50% {
+    transform: rotate(-30deg);
+  }
+
+  100% {
+    transform: rotate(30deg);
+  }
+}
+
+body {
+  margin: 0;
+  background-color: var(--tertiary-brown);
+  height: 100vh;
+  display: grid;
+  grid-template:
+    "header" 83px
+    "background" 1fr
+    / 1fr;
+}
+
+header {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  width: 100vw;
+  background-color: var(--tertiary-brown);
+  font-family: "Pacifico", cursive;
+  grid-area: header;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: var(--secondary-brown) 4px solid;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.75);
+}
+
+header > div {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-wrap: nowrap;
+  margin: 0.75rem;
+}
+
+.title > h1,
+.action > h2 {
+  margin: 0;
+}
+
+.title > img {
+  height: auto;
+  width: 48px;
+}
+
+.action > img {
+  height: auto;
+  width: 56px;
+  cursor: pointer;
+}
+
+.action > img:hover {
+  transition: all 0.2s;
+  transform: scale(1.1);
+}
+
+.action > img:active {
+  transition: all 0s;
+  transform: rotate(90deg);
+}
+
+dialog {
+  border: 4px solid var(--primary-brown);
+  border-radius: 8px;
+  background-color: var(--tertiary-brown);
+}
+
+#bookForm {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-auto-flow: row;
+  grid-auto-rows: 45px;
+  gap: 1rem;
+  align-items: center;
+}
+
+#bookForm > label,
+#bookForm > h2 {
+  font-family: "Sacramento", cursive;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary-red);
+}
+
+#bookForm > h2 {
+  margin: 0;
+}
+
+#bookForm > input {
+  border: 2px solid var(--primary-brown);
+  border-radius: 8px;
+  height: 40px;
+}
+
+.bookButtons {
+  margin-top: 1.25rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+.bookButtons > button {
+  font-family: "Pacifico", cursive;
+  font-size: 18px;
+  border: 0;
+  height: 50px;
+  width: 90px;
+}
+
+#cancel {
+  background-color: var(--tertiary-red);
+  color: var(--primary-red);
+  box-shadow: 0px 4px 0px var(--secondary-red);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+}
+
+#cancel:hover {
+  box-shadow: 0px 3px 0px var(--secondary-red);
+  transform: translateY(1px);
+}
+
+#cancel:active {
+  box-shadow: 0px 0px 0px var(--secondary-red);
+  transform: translateY(4px);
+}
+
+#submit {
+  background-color: var(--secondary-brown);
+  color: var(--primary-brown);
+  box-shadow: 0px 4px 0px var(--primary-brown);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+}
+
+#submit:hover {
+  box-shadow: 0px 3px 0px var(--primary-brown);
+  transform: translateY(1px);
+}
+
+#submit:active {
+  box-shadow: 0px 0px 0px var(--primary-brown);
+  transform: translateY(4px);
+}
+
+.background {
+  grid-area: background;
+  background-image: var(--secondary-background);
+  animation: christmas-lights 4.5s ease-in-out 0s infinite;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  font-family: "Sacramento", cursive;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 250px);
+  gap: 2rem;
+  justify-content: center;
+}
+
+.card {
+  background-color: var(--tertiary-brown);
+  border: var(--primary-red) 4px solid;
+  border-radius: 8px;
+  padding: 1rem;
+  display: grid;
+  grid-template:
+    "title titleValue"
+    "author authorValue"
+    "pages pagesValue"
+    "read readValue"
+    "delete delete"
+    / 1fr 2fr;
+  gap: 14px 28px;
+  align-items: center;
+  box-shadow: 0px 0px 5px 1px black;
+}
+
+.card > h2,
+.card > p {
+  margin: 0;
+}
+
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 90px;
+  height: 40px;
+}
+
+.toggle input {
+  display: none;
+}
+
+.slider {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: var(--secondary-brown);
+  border-radius: 8px;
+  border: var(--primary-brown) 3px solid;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 36px;
+  width: 36px;
+  left: 2px;
+  bottom: 2px;
+  background-color: var(--primary-brown);
+  transition: 0.4s;
+  border-radius: 8px;
+  box-shadow: 2px 2px 4px grey;
+}
+
+input:checked + .slider {
+  border: var(--primary-red) 3px solid;
+  background-color: var(--tertiary-red);
+}
+
+input:checked + .slider:before {
+  transform: translateX(50px);
+  background-color: var(--primary-red);
+  box-shadow: 2px 2px 4px var(--secondary-red);
+}
+
+.card > img {
+  grid-area: delete;
+  width: 64px;
+  height: auto;
+  justify-self: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.card > img:hover {
+  transform: scale(1.1);
+}
+
+.card > img:active {
+  transition: all 0.1s;
+  transform: rotate(30deg);
+}
+
+footer {
+  margin-top: auto;
+  font-family: "Pacifico", cursive;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+.footer-background {
+  background-color: rgba(248, 241, 238, 0.6);
+  text-shadow: 0px 0px 4px #d2bab0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem;
+}
+
+footer p {
+  margin: 0;
+}
+
+footer span {
+  color: var(--primary-red);
+  text-shadow: 0px 0px 4px var(--secondary-red);
+}
+
+.footer-logos {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.signature {
+  width: 24px;
+  height: auto;
+  cursor: pointer;
+}
+
+.github-link {
+  display: flex;
+  align-items: center;
+}
+
+.github-logo {
+  width: 32px;
+  height: auto;
+}
+
+.github-logo:hover {
+  animation: shake 0.5s ease-in-out 0s infinite;
+}

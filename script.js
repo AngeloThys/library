@@ -15,7 +15,8 @@ function addBookToLibrary(title, author, pages, read) {
 
 function displayBooks(library) {
   const main = document.querySelector("main");
-  for (let book of library) {
+  const cards = [];
+  for (let [index, book] of library.entries()) {
     const div = document.createElement("div");
     div.className = "card";
     for (let property in book) {
@@ -30,6 +31,10 @@ function displayBooks(library) {
         label.className = "toggle";
         input.setAttribute("type", "checkbox");
         span.className = "slider";
+
+        if (book[property]) {
+          input.checked = true;
+        }
 
         label.appendChild(input);
         label.appendChild(span);
@@ -53,11 +58,26 @@ function displayBooks(library) {
 
     img.setAttribute("src", "./img/trashcan-icon.svg");
     img.setAttribute("alt", "Icon of a trashcan");
+    img.addEventListener("click", () => {
+      div.style.opacity = 0;
+      div.addEventListener("transitionend", () => {
+        // removeBookCard(div.dataset.indexNumber);
+        console.log("transition ended");
+      });
+    });
 
     div.appendChild(img);
 
-    main.appendChild(div);
+    div.setAttribute("data-index-number", index);
+
+    cards.push(div);
   }
+  main.replaceChildren(...cards);
+}
+
+function removeBookCard(bookIndex) {
+  myLibrary.splice(bookIndex, 1);
+  displayBooks(myLibrary);
 }
 
 const openFormButton = document.querySelector(".action");
@@ -78,7 +98,7 @@ function getBookInfo() {
   const bookTitle = document.querySelector("#title").value;
   const bookAuthor = document.querySelector("#author").value;
   const bookPages = document.querySelector("#pages").value;
-  const bookRead = document.querySelector("#read").value;
+  const bookRead = document.querySelector("#read").checked;
 
   return [bookTitle, bookAuthor, bookPages, bookRead];
 }

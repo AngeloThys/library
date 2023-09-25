@@ -285,16 +285,6 @@ input:checked + .slider:before {
   cursor: pointer;
 }
 
-.card > img:hover {
-  transition: transform 0.2s;
-  transform: scale(1.1);
-}
-
-.card > img:active {
-  transition: transform 0.1s;
-  transform: rotate(30deg);
-}
-
 footer {
   margin-top: auto;
   font-family: "Pacifico", cursive;

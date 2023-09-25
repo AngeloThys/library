@@ -58,15 +58,31 @@ function displayBooks(library) {
 
     img.setAttribute("src", "./img/trashcan-icon.svg");
     img.setAttribute("alt", "Icon of a trashcan");
-    img.addEventListener("click", () => {
+
+    img.addEventListener("mouseenter", (event) => {
+      event.stopPropagation();
+      img.style.cssText = "transition: transform 0.2s; transform: scale(1.1);";
+    });
+
+    img.addEventListener("mouseleave", (event) => {
+      event.stopPropagation();
+      img.style.cssText = "transition: transform 0.2s; transform: scale(1.0);";
+    });
+
+    img.addEventListener("click", (event) => {
+      img.style.cssText =
+        "transition: transform 0.1s; transform: rotate(30deg);";
       div.style.opacity = 0;
+    });
+
+    img.addEventListener("transitionend", (event) => {
+      event.stopPropagation();
     });
 
     div.addEventListener("transitionend", (event) => {
       if (event.propertyName === "opacity") {
         removeBookCard(div.dataset.indexNumber);
       }
-      console.log(event);
     });
 
     div.appendChild(img);

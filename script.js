@@ -60,10 +60,13 @@ function displayBooks(library) {
     img.setAttribute("alt", "Icon of a trashcan");
     img.addEventListener("click", () => {
       div.style.opacity = 0;
-      div.addEventListener("transitionend", () => {
-        // removeBookCard(div.dataset.indexNumber);
-        console.log("transition ended");
-      });
+    });
+
+    div.addEventListener("transitionend", (event) => {
+      if (event.propertyName === "opacity") {
+        removeBookCard(div.dataset.indexNumber);
+      }
+      console.log(event);
     });
 
     div.appendChild(img);

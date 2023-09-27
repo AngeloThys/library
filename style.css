@@ -91,7 +91,7 @@ header > div {
 
 .action > img {
   height: auto;
-  width: 56px;
+  width: 28px;
   cursor: pointer;
 }
 
@@ -279,7 +279,7 @@ input:checked + .slider:before {
 
 .card > img {
   grid-area: delete;
-  width: 64px;
+  width: 28px;
   height: auto;
   justify-self: center;
   cursor: pointer;

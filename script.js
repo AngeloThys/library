@@ -30,6 +30,9 @@ function displayBooks(library) {
 
         label.className = "toggle";
         input.setAttribute("type", "checkbox");
+        input.addEventListener("click", () => {
+          changeReadStatus(div.dataset.indexNumber);
+        });
         span.className = "slider";
 
         if (book[property]) {
@@ -92,6 +95,10 @@ function displayBooks(library) {
     cards.push(div);
   }
   main.replaceChildren(...cards);
+}
+
+function changeReadStatus(bookIndex) {
+  myLibrary[bookIndex].read = myLibrary[bookIndex].read ? false : true;
 }
 
 function removeBookCard(bookIndex) {

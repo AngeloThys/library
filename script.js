@@ -1,124 +1,116 @@
-// All books are stored locally
-const myLibrary = [];
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+  }
 
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
+  changeReadStatus() {
+    this.read = this.read ? false : true;
+  }
 }
 
-function addBookToLibrary(title, author, pages, read) {
-  let newBook = new Book(title, author, pages, read);
-  myLibrary.push(newBook);
-}
+class Library {
+  constructor() {
+    this.library = [];
+  }
 
-function displayBooks(library) {
-  const main = document.querySelector("main");
-  const cards = [];
-  for (let [index, book] of library.entries()) {
-    const div = document.createElement("div");
-    div.className = "card";
-    for (let property in book) {
-      if (property === "read") {
-        const h2 = document.createElement("h2");
-        const label = document.createElement("label");
-        const input = document.createElement("input");
-        const span = document.createElement("span");
+  addBook(book) {
+    this.library.push(book);
+  }
 
-        h2.textContent = property[0].toUpperCase() + property.slice(1);
+  removeBook(bookIndex) {
+    this.library.splice(bookIndex, 1);
+  }
 
-        label.className = "toggle";
-        input.setAttribute("type", "checkbox");
-        input.addEventListener("click", () => {
-          changeReadStatus(div.dataset.indexNumber);
-        });
-        span.className = "slider";
+  displayBooks() {
+    const main = document.querySelector("main");
+    const cards = [];
+    for (let [index, book] of this.library.entries()) {
+      const div = document.createElement("div");
+      div.className = "card";
+      for (let property in book) {
+        if (property === "read") {
+          const h2 = document.createElement("h2");
+          const label = document.createElement("label");
+          const input = document.createElement("input");
+          const span = document.createElement("span");
 
-        if (book[property]) {
-          input.checked = true;
+          h2.textContent = property[0].toUpperCase() + property.slice(1);
+
+          label.className = "toggle";
+          input.setAttribute("type", "checkbox");
+          input.addEventListener("click", () => {
+            book.changeReadStatus();
+          });
+          span.className = "slider";
+
+          if (book[property]) {
+            input.checked = true;
+          }
+
+          label.appendChild(input);
+          label.appendChild(span);
+
+          div.appendChild(h2);
+          div.appendChild(label);
+
+          break;
         }
 
-        label.appendChild(input);
-        label.appendChild(span);
+        const h2 = document.createElement("h2");
+        const p = document.createElement("p");
+
+        h2.textContent = property[0].toUpperCase() + property.slice(1);
+        p.textContent = book[property];
 
         div.appendChild(h2);
-        div.appendChild(label);
-
-        break;
+        div.appendChild(p);
       }
+      const img = document.createElement("img");
 
-      const h2 = document.createElement("h2");
-      const p = document.createElement("p");
+      img.setAttribute("src", "./img/trashcan-icon.svg");
+      img.setAttribute("alt", "Icon of a trashcan");
 
-      h2.textContent = property[0].toUpperCase() + property.slice(1);
-      p.textContent = book[property];
+      img.addEventListener("mouseenter", (event) => {
+        event.stopPropagation();
+        img.style.cssText =
+          "transition: transform 0.2s; transform: scale(1.1);";
+      });
 
-      div.appendChild(h2);
-      div.appendChild(p);
+      img.addEventListener("mouseleave", (event) => {
+        event.stopPropagation();
+        img.style.cssText =
+          "transition: transform 0.2s; transform: scale(1.0);";
+      });
+
+      img.addEventListener("click", () => {
+        img.style.cssText =
+          "transition: transform 0.1s; transform: rotate(30deg);";
+        div.style.opacity = 0;
+      });
+
+      img.addEventListener("transitionend", (event) => {
+        event.stopPropagation();
+      });
+
+      div.addEventListener("transitionend", (event) => {
+        if (event.propertyName === "opacity") {
+          this.removeBook(div.dataset.indexNumber);
+          this.displayBooks();
+        }
+      });
+
+      div.appendChild(img);
+
+      div.setAttribute("data-index-number", index);
+
+      cards.push(div);
     }
-    const img = document.createElement("img");
-
-    img.setAttribute("src", "./img/trashcan-icon.svg");
-    img.setAttribute("alt", "Icon of a trashcan");
-
-    img.addEventListener("mouseenter", (event) => {
-      event.stopPropagation();
-      img.style.cssText = "transition: transform 0.2s; transform: scale(1.1);";
-    });
-
-    img.addEventListener("mouseleave", (event) => {
-      event.stopPropagation();
-      img.style.cssText = "transition: transform 0.2s; transform: scale(1.0);";
-    });
-
-    img.addEventListener("click", (event) => {
-      img.style.cssText =
-        "transition: transform 0.1s; transform: rotate(30deg);";
-      div.style.opacity = 0;
-    });
-
-    img.addEventListener("transitionend", (event) => {
-      event.stopPropagation();
-    });
-
-    div.addEventListener("transitionend", (event) => {
-      if (event.propertyName === "opacity") {
-        removeBookCard(div.dataset.indexNumber);
-      }
-    });
-
-    div.appendChild(img);
-
-    div.setAttribute("data-index-number", index);
-
-    cards.push(div);
+    main.replaceChildren(...cards);
   }
-  main.replaceChildren(...cards);
 }
-
-function changeReadStatus(bookIndex) {
-  myLibrary[bookIndex].read = myLibrary[bookIndex].read ? false : true;
-}
-
-function removeBookCard(bookIndex) {
-  myLibrary.splice(bookIndex, 1);
-  displayBooks(myLibrary);
-}
-
-const openFormButton = document.querySelector(".action");
-const dialog = document.querySelector("#bookDialog");
-const form = document.querySelector("#bookForm");
-const cancelButton = document.querySelector("#cancel");
-const submitButton = document.querySelector("#submit");
-
-openFormButton.addEventListener("click", () => {
-  dialog.showModal();
-});
-
-cancelButton.addEventListener("click", () => {
-  dialog.close();
-});
 
 function getBookInfo() {
   const bookTitle = document.querySelector("#title").value;
@@ -129,10 +121,26 @@ function getBookInfo() {
   return [bookTitle, bookAuthor, bookPages, bookRead];
 }
 
+const openFormButton = document.querySelector(".action");
+const dialog = document.querySelector("#bookDialog");
+const form = document.querySelector("#bookForm");
+const cancelButton = document.querySelector("#cancel");
+const submitButton = document.querySelector("#submit");
+
+const library = new Library();
+
+openFormButton.addEventListener("click", () => {
+  dialog.showModal();
+});
+
+cancelButton.addEventListener("click", () => {
+  dialog.close();
+});
+
 submitButton.addEventListener("click", () => {
-  const newBook = getBookInfo();
-  addBookToLibrary(...newBook);
+  const book = new Book(...getBookInfo());
+  library.addBook(book);
   dialog.close();
   form.reset();
-  displayBooks(myLibrary);
+  library.displayBooks();
 });

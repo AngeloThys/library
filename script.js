@@ -15,14 +15,7 @@ class Book {
 
 class Library {
   constructor() {
-    this.library = [
-      {
-        title: 'A',
-        author: 'A',
-        pages: 2,
-        read: true,
-      },
-    ];
+    this.library = [];
   }
 
   addBook(book) {
@@ -71,11 +64,11 @@ cancelButton.addEventListener('click', () => {
 });
 
 submitButton.addEventListener('click', () => {
-  const book = new Book(...getBookInfo());
-  library.addBook(book);
-  dialog.close();
-  form.reset();
-  library.displayBooks();
+  if (form.reportValidity()) {
+    const book = new Book(...getBookInfo());
+    library.addBook(book);
+    dialog.close();
+    form.reset();
+    library.displayBooks();
+  }
 });
-
-library.displayBooks();

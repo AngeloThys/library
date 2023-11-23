@@ -105,7 +105,7 @@ header > div {
   transform: rotate(90deg);
 }
 
-dialog {
+#bookDialog {
   border: 4px solid var(--primary-brown);
   border-radius: 8px;
   background-color: var(--tertiary-brown);
@@ -113,29 +113,61 @@ dialog {
 
 #bookForm {
   display: grid;
-  grid-template-columns: 1fr 3fr;
   grid-auto-flow: row;
   grid-auto-rows: 45px;
-  gap: 1rem;
+  gap: 2rem;
   align-items: center;
+
+  & label,
+  & h2 {
+    font-family: 'Sacramento', cursive;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary-red);
+  }
+
+  & h2 {
+    margin: 0;
+  }
+
+  & input {
+    border: 2px solid var(--primary-brown);
+    border-radius: 8px;
+    height: 40px;
+  }
 }
 
-#bookForm > label,
-#bookForm > h2 {
-  font-family: 'Sacramento', cursive;
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--primary-red);
-}
+.titleContainer,
+.authorContainer,
+.pagesContainer,
+.readContainer {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-auto-flow: column;
+  place-items: center start;
 
-#bookForm > h2 {
-  margin: 0;
-}
+  & label {
+    margin-bottom: 1rem;
+  }
 
-#bookForm > input {
-  border: 2px solid var(--primary-brown);
-  border-radius: 8px;
-  height: 40px;
+  & .inputContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 0.25rem;
+
+    & input:invalid {
+      background-color: rgb(227, 119, 119);
+    }
+    
+    & input:valid {
+      background-color: rgb(140, 204, 140);
+    }
+    
+    & .inputInfo {
+      font-size: .75rem;
+    }
+  }  
 }
 
 .bookButtons {
@@ -278,51 +310,51 @@ main {
 .readStatusElement {
   grid-area: readElement;
   place-self: center start;
+}
 
-  & .readStatusSlider {
-    position: relative;
-    display: inline-block;
-    width: 90px;
-    height: 40px;
+.readStatusSlider {
+  position: relative;
+  display: inline-block;
+  width: 90px;
+  height: 40px;
 
-    & .sliderTrigger {
-      display: none;
-    }
+  & .sliderTrigger {
+    display: none;
+  }
 
-    & .sliderButton {
-      position: absolute;
-      height: 100%;
-      width: 100%;
-      background-color: var(--secondary-brown);
-      border-radius: 8px;
-      border: var(--primary-brown) 3px solid;
-      cursor: pointer;
-      transition: 0.4s;
-    }
+  & .sliderButton {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: var(--secondary-brown);
+    border-radius: 8px;
+    border: var(--primary-brown) 3px solid;
+    cursor: pointer;
+    transition: 0.4s;
+  }
 
-    & .sliderButton:before {
-      position: absolute;
-      content: '';
-      height: 36px;
-      width: 36px;
-      left: 2px;
-      bottom: 2px;
-      background-color: var(--primary-brown);
-      transition: 0.4s;
-      border-radius: 8px;
-      box-shadow: 2px 2px 4px grey;
-    }
+  & .sliderButton:before {
+    position: absolute;
+    content: '';
+    height: 36px;
+    width: 36px;
+    left: 2px;
+    bottom: 2px;
+    background-color: var(--primary-brown);
+    transition: 0.4s;
+    border-radius: 8px;
+    box-shadow: 2px 2px 4px grey;
+  }
 
-    & .sliderTrigger:checked + .sliderButton {
-      border: var(--primary-red) 3px solid;
-      background-color: var(--tertiary-red);
-    }
+  & .sliderTrigger:checked + .sliderButton {
+    border: var(--primary-red) 3px solid;
+    background-color: var(--tertiary-red);
+  }
 
-    & .sliderTrigger:checked + .sliderButton:before {
-      transform: translateX(50px);
-      background-color: var(--primary-red);
-      box-shadow: 2px 2px 4px var(--secondary-red);
-    }
+  & .sliderTrigger:checked + .sliderButton:before {
+    transform: translateX(50px);
+    background-color: var(--primary-red);
+    box-shadow: 2px 2px 4px var(--secondary-red);
   }
 }
 

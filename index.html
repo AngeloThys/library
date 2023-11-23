@@ -10,7 +10,11 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
-    <link rel="shortcut icon" href="./img/library-icon-2.svg" type="image/x-icon">
+    <link
+      rel="shortcut icon"
+      href="./img/library-icon-2.svg"
+      type="image/x-icon"
+    />
     <script src="script.js" type="module" defer></script>
     <title>Library</title>
   </head>
@@ -30,17 +34,39 @@
     </header>
     <dialog id="bookDialog">
       <form id="bookForm" method="dialog" action="">
-        <label for="title">Title</label>
-        <input type="text" name="title" id="title" />
-        <label for="author">Author</label>
-        <input type="text" name="author" id="author" />
-        <label for="pages">Pages</label>
-        <input type="number" name="pages" id="pages" />
-        <h2>Read</h2>
-        <label class="toggle" for="read">
-          <input type="checkbox" name="read" id="read" />
-          <span class="slider"></span>
-        </label>
+        <div class="titleContainer">
+          <label for="title">Title</label>
+          <div class="inputContainer">
+            <input type="text" name="title" id="title" required />
+            <span class="inputInfo">* Required field</span>
+          </div>
+        </div>
+        <div class="authorContainer">
+          <label for="author">Author</label>
+          <div class="inputContainer">
+            <input type="text" name="author" id="author" required />
+            <span class="inputInfo">* Required field</span>
+          </div>
+        </div>
+        <div class="pagesContainer">
+          <label for="pages">Pages</label>
+          <div class="inputContainer">
+            <input type="number" name="pages" id="pages" required />
+            <span class="inputInfo">* Required field</span>
+          </div>
+        </div>
+        <div class="readContainer">
+          <h2>Read</h2>
+          <label class="readStatusSlider" for="read">
+            <input
+              type="checkbox"
+              name="read"
+              id="read"
+              class="sliderTrigger"
+            />
+            <span class="sliderButton"></span>
+          </label>
+        </div>
       </form>
       <div class="bookButtons">
         <button id="cancel" type="reset">Cancel</button>
